@@ -1,0 +1,6 @@
+tmp/
+
+# NixOS build
+result
+.playwright-cli
+
