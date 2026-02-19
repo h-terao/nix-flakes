@@ -1,24 +1,31 @@
-# Nix Configurations
+# Nix Flakes
 
-This repository contains my NixOS and home configurations, primarily powered by [Flakes](https://wiki.nixos.org/wiki/Flakes) and [Denix](https://github.com/yunfachi/denix).
+My NixOS and home-manager configurations, relying on [Flakes](https://wiki.nixos.org/wiki/Flakes) and [Denix](https://github.com/yunfachi/denix).
 
-## Note
+**Highlights:**
 
-At the moment, nixos-rebuild does not configure everything end-to-end. Some steps still require manual setup (see below).
+- Secure encryption with LUKS and TPM2
+- Denix-style modular configuration
+- Custom packages, including `playwright-cli`.
 
-### Disk auto-unlock with TPM
+## Appendix
 
-To enroll a LUKS device for automatic decryption via TPM2:
+### Decrypting Encrypted Disks with TPM2
+
+LUKS encrypted disks can be automatically decrypted at boot using TPM2. This setup enhances security by tying disk decryption to the specific hardware, preventing unauthorized access if the disk is removed.
+
+To enroll a disk for TPM2-based decryption, use the following command on the target host:
 
 ```bash
 sudo systemd-cryptenroll \
   --tpm2-device=auto \
   --tpm2-pcrs=0+7 \
   --wipe-slot=tpm2 \
-  /dev/disk/by-uuid/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+  /dev/disk/by-uuid/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  # Replace with your disk's UUID
 ```
 
-Replace the UUID with the one found in the target host's hardware-configuration.nix.
+> [!NOTE]
+> Your disk's UUID can be found in `hardware-configuration.nix`.
 
 ## Monitor Setup
 
