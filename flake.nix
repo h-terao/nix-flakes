@@ -33,6 +33,10 @@
       url = "path:./packages/playwright-cli";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    claude-desktop = {
+      url = "path:./packages/claude-desktop";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     { denix, ... }@inputs:
