@@ -5,7 +5,6 @@
 }:
 let
   pkgs-overlays = [
-    inputs.nix-vscode-extensions.overlays.default
     inputs.quickshell.overlays.default
     inputs.playwright-cli.overlays.default
   ];

@@ -8,6 +8,12 @@ delib.module {
   name = "programs.vscode";
   options = delib.singleEnableOption true;
 
+  nixos.always = {
+    nixpkgs.overlays = [
+      inputs.nix-vscode-extensions.overlays.default
+    ];
+  };
+
   home.ifEnabled = {
     programs.vscode = {
       enable = true;
@@ -35,23 +41,23 @@ delib.module {
           };
         };
 
-        extensions = (with pkgs.nix-vscode-extensions.vscode-marketplace; [
-          # Language Pack
-          ms-ceintl.vscode-language-pack-ja
-          # AI
-          github.copilot
-          anthropic.claude-code
-          # Python
-          ms-python.python
-          # ms-python.vscode-pylance
-          charliermarsh.ruff
-          # Nix
-          jnoortheen.nix-ide
-        ])
-        ++ 
-        (with pkgs.vscode-extensions; [
-	  ms-python.vscode-pylance
-        ]);
+        extensions =
+          (with pkgs.nix-vscode-extensions.vscode-marketplace; [
+            # Language Pack
+            ms-ceintl.vscode-language-pack-ja
+            # AI
+            github.copilot
+            anthropic.claude-code
+            # Python
+            ms-python.python
+            # ms-python.vscode-pylance
+            charliermarsh.ruff
+            # Nix
+            jnoortheen.nix-ide
+          ])
+          ++ (with pkgs.vscode-extensions; [
+            ms-python.vscode-pylance
+          ]);
 
         keybindings = [
           {
