@@ -8,40 +8,10 @@ delib.module {
   options = delib.singleEnableOption true;
 
   home.ifEnabled = {
-    programs.obsidian = {
-      enable = true;
-      package = pkgs.obsidian;
-      # See https://mynixos.com/home-manager/options/programs.obsidian
-      # vaults = {
-      #   # I like fancy names for my vaults😉
-      #   Grimore = {
-      #     enable = true;
-      #     target = "Documents/Obsidian/Grimoire";
-      #     settings = {
-      #       corePlugins = [
-      #         "backlink"
-      #         "bases"
-      #         "bookmarks"
-      #         "canvas"
-      #         "command-palette"
-      #         "daily-notes"
-      #         "editor-status"
-      #         "file-explorer"
-      #         "file-recovery"
-      #         "global-search"
-      #         "graph"
-      #         "note-composer"
-      #         "outgoing-link"
-      #         "outline"
-      #         "page-preview"
-      #         "switcher"
-      #         "tag-pane"
-      #         "templates"
-      #         "word-count"
-      #       ];
-      #     };
-      #   };
-      # };
-    };
+    # Avoid `programs.obsidian` to open last used vault on startup
+    # https://github.com/nix-community/home-manager/issues/7406
+    home.packages = with pkgs; [
+      obsidian
+    ];
   };
 }
