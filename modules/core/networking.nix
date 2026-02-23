@@ -48,6 +48,20 @@ delib.module {
       # };
 
       # Enable the OpenSSH daemon.
-      # services.openssh.enable = true;
+      services.openssh.enable = true;
+
+      # IP
+      networking = {
+        useDHCP = false;
+        # TODO: Parameterize this
+        interfaces.wlp8s0.ipv4.addresses = [
+          {
+            address = "192.168.0.18";
+            prefixLength = 24;
+          }
+        ];
+        defaultGateway = "192.168.0.1";
+        nameservers = [ "192.168.0.1" ];
+      };
     };
 }
